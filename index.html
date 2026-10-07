@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GS Tools Admin</title>
+<style>
+:root{--bg:#f7f7f8;--card:#fff;--ink:#171717;--muted:#737373;--line:#e7e7ea;--accent:#5e6ad2;--ok:#15803d;--warn:#a16207;--bad:#dc2626;--r:14px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.01em}button,input,select,textarea{font:inherit}.hidden{display:none!important}.btn{border:0;border-radius:9px;padding:10px 14px;font-weight:600;cursor:pointer}.btn-dark{background:#171717;color:white}.btn-accent{background:var(--accent);color:#fff}.btn-ghost{background:#fff;border:1px solid var(--line)}.input,.select,.textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:9px;outline:0}.input,.select{height:42px;padding:0 12px}.textarea{min-height:110px;padding:12px;resize:vertical}.input:focus,.select:focus,.textarea:focus{border-color:#adb4ee;box-shadow:0 0 0 3px rgba(94,106,210,.12)}
+.login{min-height:100vh;display:grid;place-items:center;padding:24px}.login-card{width:min(430px,100%);background:#fff;border:1px solid var(--line);border-radius:22px;padding:34px;box-shadow:0 16px 50px rgba(0,0,0,.06)}.mark{width:42px;height:42px;border-radius:12px;background:#171717;color:white;display:grid;place-items:center;font-weight:700;margin-bottom:24px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#8a8a93;font-weight:600}.login h1,.title{letter-spacing:-.045em}.login h1{font-size:30px;margin:6px 0}.sub{font-size:13px;color:var(--muted);line-height:1.6}.field{margin-top:17px}.field label{display:block;font-size:13px;font-weight:600;margin-bottom:8px}.msg{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.5}.err{color:var(--bad)}
+.shell{min-height:100vh;display:grid;grid-template-columns:240px 1fr}.sidebar{height:100vh;position:sticky;top:0;background:#fbfbfc;border-right:1px solid var(--line);padding:16px 13px}.brand{display:flex;gap:10px;align-items:center;padding:7px 8px 20px}.brand .mark{width:30px;height:30px;border-radius:9px;margin:0}.brand strong{font-size:14px}.nav-title{padding:10px;color:#aaa;font-size:10px;text-transform:uppercase;letter-spacing:.1em}.nav button{width:100%;border:0;background:transparent;text-align:left;padding:10px;border-radius:8px;color:#555;cursor:pointer;margin:1px 0}.nav button:hover,.nav button.active{background:#efeff2;color:#171717}.profile{position:absolute;bottom:18px;left:14px;right:14px;border-top:1px solid var(--line);padding-top:14px}.profile strong,.profile small{display:block;overflow:hidden;text-overflow:ellipsis}.profile small{color:var(--muted);font-size:11px}
+.main{padding:34px 38px 60px;max-width:1500px;width:100%;margin:auto}.topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:26px}.title{font-size:30px;margin:5px 0 4px}.actions,.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.stat,.panel,.program-card{background:#fff;border:1px solid var(--line);border-radius:var(--r)}.stat{padding:18px}.stat .n{font-size:30px;font-weight:700;margin-top:13px}.stat .label{font-size:12px;color:var(--muted)}.panel{margin-top:18px;overflow:hidden}.panel-head{padding:17px 19px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}.panel-head h2{font-size:17px;margin:0}.table{width:100%;border-collapse:collapse}.table th{font-size:11px;color:#909099;font-weight:500;text-align:left;padding:11px 15px;border-bottom:1px solid var(--line)}.table td{font-size:13px;padding:14px 15px;border-bottom:1px solid #f0f0f2}.table tr.click{cursor:pointer}.table tr.click:hover{background:#fafafa}.badge{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:600}.new{background:#fff1f2;color:#be123c}.checking{background:#fff7ed;color:#9a3412}.developing{background:#eef2ff;color:#4338ca}.resolved{background:#ecfdf3;color:#15803d}.closed{background:#f3f4f6;color:#52525b}
+.inbox{display:grid;grid-template-columns:minmax(380px,1fr) minmax(420px,1fr);min-height:620px}.list{border-right:1px solid var(--line)}.issue{padding:15px 18px;border-bottom:1px solid #efeff2;cursor:pointer}.issue:hover,.issue.active{background:#f8f8fa}.issue-title{font-size:14px;font-weight:650}.issue-meta{font-size:12px;color:var(--muted);margin-top:7px;display:flex;gap:8px;flex-wrap:wrap}.detail{padding:24px}.detail h3{font-size:22px;margin:6px 0}.kv{display:grid;grid-template-columns:110px 1fr;gap:10px 13px;font-size:13px;margin:20px 0}.kv .k{color:var(--muted)}.bodybox{background:#fafafa;border:1px solid var(--line);border-radius:11px;padding:15px;white-space:pre-wrap;line-height:1.65;font-size:14px}.programs{display:grid;grid-template-columns:1fr 1fr;gap:13px}.program-card{padding:18px;display:flex;justify-content:space-between;gap:16px;align-items:center}.release-row{display:grid;grid-template-columns:120px 1fr 140px 180px;gap:12px;align-items:center;padding:14px 18px;border-bottom:1px solid #efeff2}.empty{padding:50px 20px;text-align:center;color:var(--muted);font-size:13px}.toast{position:fixed;right:24px;bottom:24px;background:#171717;color:white;padding:11px 14px;border-radius:9px;font-size:13px}
+@media(max-width:980px){.shell{grid-template-columns:1fr}.sidebar{display:none}.main{padding:22px 16px}.grid4{grid-template-columns:1fr 1fr}.inbox{grid-template-columns:1fr}.list{border-right:0}.detail{border-top:1px solid var(--line)}.programs{grid-template-columns:1fr}.release-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<section id="login" class="login">
+<div class="login-card">
+  <div class="mark">G</div>
+  <div class="eyebrow">GS TOOLS ADMIN</div>
+  <h1>관리자 로그인</h1>
+  <div class="sub">접수사항, 공지, 프로그램 버전과 설치파일을 한 곳에서 관리합니다.</div>
+  <div class="field"><label>이메일</label><input id="email" class="input" type="email" value="daheekoo@gsenc.com"></div>
+  <div class="field"><label>비밀번호</label><input id="password" class="input" type="password" placeholder="비밀번호 입력"></div>
+  <button id="loginBtn" class="btn btn-dark" style="width:100%;margin-top:20px">로그인</button>
+  <div id="loginMsg" class="msg">관리자 계정만 로그인할 수 있습니다.</div>
+</div>
+</section>
+
+<section id="admin" class="shell hidden">
+<aside class="sidebar">
+  <div class="brand"><div class="mark">G</div><div><strong>GS Tools</strong><small class="sub" style="display:block">Admin</small></div></div>
+  <div class="nav-title">Workspace</div>
+  <nav class="nav">
+    <button data-page="dashboard" class="active">⌂ 대시보드</button>
+    <button data-page="inbox">▣ 접수함 <span id="openCount"></span></button>
+    <button data-page="notices">◉ 공지사항</button>
+    <button data-page="programs">⌘ 프로그램</button>
+    <button data-page="releases">↑ 버전관리</button>
+  </nav>
+  <div class="profile"><small>관리자</small><strong style="font-size:12px">daheekoo@gsenc.com</strong><button id="logout" class="btn btn-ghost" style="width:100%;margin-top:10px">로그아웃</button></div>
+</aside>
+<main class="main">
+  <div id="dashboard" class="page"></div>
+  <div id="inbox" class="page hidden"></div>
+  <div id="notices" class="page hidden"></div>
+  <div id="programs" class="page hidden"></div>
+  <div id="releases" class="page hidden"></div>
+</main>
+</section>
+<div id="toast" class="toast hidden"></div>
+
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const URL='https://vzfujgzhxtrtqrzqwtsq.supabase.co';
+const KEY='sb_publishable_nVx9IH3WMgukXfhu7Im1Bg_hoz8JmCa';
+const ADMIN='daheekoo@gsenc.com';
+const supabase=createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true}});
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+const state={feedback:[],programs:[],notices:[],releases:[],selected:null,programFilter:'',statusFilter:'',releaseProgram:''};
+const names={nametag:'이름표 프린터',pmx:'PMX 리모콘',kakao:'카카오 자동화',msds:'MSDS 도구'};
+const statusKo={new:'미처리',checking:'처리중',developing:'개발중',resolved:'해결완료',closed:'종료'};
+const catKo={error:'오류',suggestion:'건의',question:'문의'};
+const fmt=d=>d?new Date(d).toLocaleString('ko-KR',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}):'-';
+function toast(t){$('#toast').textContent=t;$('#toast').classList.remove('hidden');setTimeout(()=>$('#toast').classList.add('hidden'),2300)}
+function pname(c){return state.programs.find(p=>p.code===c)?.name||names[c]||c||'-'}
+async function login(){
+ const email=$('#email').value.trim().toLowerCase(), password=$('#password').value;
+ if(email!==ADMIN)return $('#loginMsg').innerHTML='<span class="err">허용된 관리자 이메일이 아닙니다.</span>';
+ if(!password)return $('#loginMsg').innerHTML='<span class="err">비밀번호를 입력해주세요.</span>';
+ $('#loginBtn').disabled=true; $('#loginMsg').textContent='로그인 중...';
+ let {error}=await supabase.auth.signInWithPassword({email,password});
+ if(error){
+   const signup=await supabase.auth.signUp({email,password,options:{data:{display_name:'Dahee Koo'}}});
+   if(signup.error){$('#loginBtn').disabled=false;$('#loginMsg').innerHTML='<span class="err">'+esc(error.message)+'</span>';return}
+   if(!signup.data.session){$('#loginBtn').disabled=false;$('#loginMsg').textContent='확인 메일이 발송되었습니다. 이메일 인증 후 다시 로그인해주세요.';return}
+ }
+ await enter();
+}
+async function enter(){
+ const {data:{user}}=await supabase.auth.getUser();
+ if(!user||user.email?.toLowerCase()!==ADMIN){await supabase.auth.signOut();return}
+ $('#login').classList.add('hidden');$('#admin').classList.remove('hidden');await refresh();go('dashboard');
+}
+async function logout(){await supabase.auth.signOut();location.reload()}
+async function refresh(){
+ const [f,p,n,r]=await Promise.all([
+   supabase.from('feedback').select('*').order('created_at',{ascending:false}),
+   supabase.from('programs').select('*').eq('is_active',true).order('created_at'),
+   supabase.from('notices').select('*').order('published_at',{ascending:false}),
+   supabase.from('releases').select('*').order('published_at',{ascending:false})
+ ]);
+ if(f.error)return toast('접수함 불러오기 실패: '+f.error.message);
+ state.feedback=f.data||[];state.programs=p.data||[];state.notices=n.data||[];state.releases=r.data||[];
+ $('#openCount').textContent=state.feedback.filter(x=>!['resolved','closed'].includes(x.status)).length||'';
+}
+function go(page,selectedId=null){
+ $$('.page').forEach(x=>x.classList.add('hidden'));$('#'+page).classList.remove('hidden');
+ $$('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
+ if(selectedId)state.selected=selectedId;
+ ({dashboard:renderDashboard,inbox:renderInbox,notices:renderNotices,programs:renderPrograms,releases:renderReleases}[page])();
+}
+function renderDashboard(){
+ const open=state.feedback.filter(x=>x.status==='new').length,checking=state.feedback.filter(x=>['checking','developing'].includes(x.status)).length,resolved=state.feedback.filter(x=>x.status==='resolved').length;
+ $('#dashboard').innerHTML=`<div class="topbar"><div><div class="eyebrow">Overview</div><h1 class="title">좋은 아침이에요.</h1><div class="sub">오늘 처리할 항목을 한눈에 확인하세요.</div></div><button class="btn btn-dark" id="openInbox">접수함 열기 →</button></div>
+ <div class="grid4"><div class="stat"><div class="label">미처리</div><div class="n">${open}</div></div><div class="stat"><div class="label">처리중</div><div class="n">${checking}</div></div><div class="stat"><div class="label">해결완료</div><div class="n">${resolved}</div></div><div class="stat"><div class="label">등록 프로그램</div><div class="n">${state.programs.length}</div></div></div>
+ <div class="panel"><div class="panel-head"><div><h2>최근 접수</h2><div class="sub">내용을 클릭하면 해당 접수 상세로 바로 이동합니다.</div></div><button class="btn btn-ghost" id="allInbox">전체 보기</button></div>
+ ${state.feedback.length?`<table class="table"><thead><tr><th>상태</th><th>프로그램</th><th>내용</th><th>유형</th><th>접수시간</th></tr></thead><tbody>${state.feedback.slice(0,6).map(x=>`<tr class="click recent" data-id="${x.id}"><td><span class="badge ${x.status}">${statusKo[x.status]||x.status}</span></td><td>${esc(pname(x.program_code))}</td><td>${esc(x.title||x.body||'')}</td><td>${esc(catKo[x.category]||x.category)}</td><td>${fmt(x.created_at)}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">아직 접수된 내용이 없습니다.</div>'}</div>`;
+ $('#openInbox').onclick=$('#allInbox').onclick=()=>go('inbox');$$('.recent').forEach(r=>r.onclick=()=>go('inbox',r.dataset.id));
+}
+function filtered(){return state.feedback.filter(x=>(!state.programFilter||x.program_code===state.programFilter)&&(!state.statusFilter||x.status===state.statusFilter))}
+function renderInbox(){
+ const list=filtered(); if(!state.selected||!list.some(x=>x.id===state.selected))state.selected=list[0]?.id||null; const sel=list.find(x=>x.id===state.selected);
+ $('#inbox').innerHTML=`<div class="topbar"><div><div class="eyebrow">Inbox</div><h1 class="title">접수함</h1><div class="sub">오류·건의사항을 프로그램별로 분류하고 처리합니다.</div></div><div class="filters"><select id="programFilter" class="select" style="width:180px"><option value="">전체 프로그램</option>${state.programs.map(p=>`<option value="${p.code}" ${state.programFilter===p.code?'selected':''}>${esc(p.name)}</option>`).join('')}</select><select id="statusFilter" class="select" style="width:140px"><option value="">전체 상태</option>${Object.entries(statusKo).map(([k,v])=>`<option value="${k}" ${state.statusFilter===k?'selected':''}>${v}</option>`).join('')}</select></div></div>
+ <div class="panel inbox"><div class="list">${list.length?list.map(x=>`<div class="issue ${x.id===state.selected?'active':''}" data-id="${x.id}"><div class="issue-title">${esc(x.title||x.body||'(제목 없음)')}</div><div class="issue-meta"><span>${esc(pname(x.program_code))}</span><span>·</span><span>${esc(catKo[x.category]||x.category)}</span><span>·</span><span>${fmt(x.created_at)}</span><span class="badge ${x.status}">${statusKo[x.status]||x.status}</span></div></div>`).join(''):'<div class="empty">조건에 맞는 접수 없음</div>'}</div><div class="detail">${detailHtml(sel)}</div></div>`;
+ $('#programFilter').onchange=e=>{state.programFilter=e.target.value;renderInbox()};$('#statusFilter').onchange=e=>{state.statusFilter=e.target.value;renderInbox()};$$('.issue').forEach(i=>i.onclick=()=>{state.selected=i.dataset.id;renderInbox()});bindDetail(sel);
+}
+function detailHtml(x){if(!x)return '<div class="empty">접수 항목을 선택해주세요.</div>';return `<div class="eyebrow">${esc(pname(x.program_code))}</div><h3>${esc(x.title||'접수 상세')}</h3><div class="kv"><div class="k">상태</div><div><select id="detailStatus" class="select">${Object.entries(statusKo).map(([k,v])=>`<option value="${k}" ${x.status===k?'selected':''}>${v}</option>`).join('')}</select></div><div class="k">버전</div><div>${esc(x.program_version||'-')}</div><div class="k">접수자</div><div>${esc(x.reporter_name||'-')}</div><div class="k">이메일</div><div>${esc(x.reporter_email||'-')}</div><div class="k">접수일</div><div>${fmt(x.created_at)}</div></div><div class="bodybox">${esc(x.body||'')}</div><div style="margin-top:18px"><label style="font-size:13px;font-weight:600">관리자 답변 / 처리 메모</label><textarea id="adminNote" class="textarea" style="margin-top:8px">${esc(x.admin_note||'')}</textarea><div class="actions" style="margin-top:10px"><button id="saveNote" class="btn btn-ghost">저장</button><button id="resolve" class="btn btn-accent">해결완료</button>${x.reporter_email?'<button id="mail" class="btn btn-ghost">이메일 작성</button>':''}</div></div>`}
+function bindDetail(x){if(!x)return;$('#detailStatus').onchange=e=>saveFeedback(x.id,{status:e.target.value,resolved_at:e.target.value==='resolved'?new Date().toISOString():null});$('#saveNote').onclick=()=>saveFeedback(x.id,{admin_note:$('#adminNote').value});$('#resolve').onclick=()=>saveFeedback(x.id,{status:'resolved',admin_note:$('#adminNote').value,resolved_at:new Date().toISOString()});if($('#mail'))$('#mail').onclick=()=>{const s=encodeURIComponent('[GS Tools] 요청하신 접수사항이 처리되었습니다');const b=encodeURIComponent('안녕하세요.\n\n접수해주신 요청의 처리가 완료되었습니다.\n\n프로그램: '+pname(x.program_code)+'\n요청: '+(x.title||x.body||'')+'\n처리내용: '+($('#adminNote').value||'처리가 완료되었습니다.'));location.href='mailto:'+x.reporter_email+'?subject='+s+'&body='+b}}
+async function saveFeedback(id,patch){const {error}=await supabase.from('feedback').update({...patch,updated_at:new Date().toISOString()}).eq('id',id);if(error)return toast('저장 실패: '+error.message);await refresh();state.selected=id;renderInbox();toast('저장했습니다.')}
+function renderNotices(){$('#notices').innerHTML=`<div class="topbar"><div><div class="eyebrow">Announcements</div><h1 class="title">공지사항</h1><div class="sub">프로그램에서 표시할 공지를 관리합니다.</div></div></div><div class="programs"><div class="panel" style="margin-top:0"><div class="panel-head"><h2>새 공지 등록</h2></div><div style="padding:18px"><div class="field"><label>대상 프로그램</label><select id="noticeProgram" class="select"><option value="">전체 프로그램</option>${state.programs.map(p=>`<option value="${p.code}">${esc(p.name)}</option>`).join('')}</select></div><div class="field"><label>제목</label><input id="noticeTitle" class="input"></div><div class="field"><label>내용</label><textarea id="noticeBody" class="textarea"></textarea></div><label class="sub"><input id="noticePinned" type="checkbox"> 중요 공지로 고정</label><button id="noticeSave" class="btn btn-dark" style="float:right">공지 게시</button></div></div><div class="panel" style="margin-top:0"><div class="panel-head"><h2>게시된 공지</h2></div>${state.notices.length?state.notices.map(n=>`<div style="padding:16px 18px;border-bottom:1px solid #efeff2"><div class="eyebrow">${n.is_pinned?'PINNED · ':''}${esc(n.program_code?pname(n.program_code):'전체')}</div><strong style="display:block;margin:6px 0">${esc(n.title)}</strong><div class="sub">${esc(n.body)}</div></div>`).join(''):'<div class="empty">공지 없음</div>'}</div></div>`;$('#noticeSave').onclick=saveNotice}
+async function saveNotice(){const payload={program_code:$('#noticeProgram').value||null,title:$('#noticeTitle').value.trim(),body:$('#noticeBody').value.trim(),is_pinned:$('#noticePinned').checked};if(!payload.title||!payload.body)return toast('제목과 내용을 입력해주세요.');const {error}=await supabase.from('notices').insert(payload);if(error)return toast('등록 실패: '+error.message);await refresh();renderNotices();toast('공지를 게시했습니다.')}
+function renderPrograms(){$('#programs').innerHTML=`<div class="topbar"><div><div class="eyebrow">Programs</div><h1 class="title">프로그램</h1><div class="sub">등록된 프로그램과 최신 버전을 확인합니다.</div></div></div><div class="programs">${state.programs.map(p=>{const r=state.releases.find(x=>x.program_code===p.code);return `<div class="program-card"><div><div class="eyebrow">${esc(p.code)}</div><div style="font-size:18px;font-weight:700;margin-top:5px">${esc(p.name)}</div><div class="sub">최신 버전 ${esc(p.latest_version||r?.version||'-')}</div></div><button class="btn btn-dark manage" data-code="${p.code}">버전관리</button></div>`}).join('')}</div>`;$$('.manage').forEach(b=>b.onclick=()=>{state.releaseProgram=b.dataset.code;go('releases')})}
+function renderReleases(){const code=state.releaseProgram||state.programs[0]?.code||'nametag';state.releaseProgram=code;const list=state.releases.filter(r=>r.program_code===code);$('#releases').innerHTML=`<div class="topbar"><div><div class="eyebrow">Releases</div><h1 class="title">버전관리</h1><div class="sub">최신 + 바로 직전 설치파일만 보관합니다.</div></div><select id="releaseProgram" class="select" style="width:190px">${state.programs.map(p=>`<option value="${p.code}" ${p.code===code?'selected':''}>${esc(p.name)}</option>`).join('')}</select></div><div class="programs"><div class="panel" style="margin-top:0"><div class="panel-head"><h2>새 버전 등록</h2></div><div style="padding:18px"><div class="field"><label>버전</label><input id="rv" class="input" placeholder="예: 1.6.2"></div><div class="field"><label>업데이트 제목</label><input id="rt" class="input"></div><div class="field"><label>설치파일</label><input id="rf" class="input" type="file" style="padding-top:9px"></div><div class="field"><label>변경사항 (한 줄에 하나)</label><textarea id="rc" class="textarea"></textarea></div><button id="releaseSave" class="btn btn-dark" style="float:right">업로드 & 배포</button></div></div><div class="panel" style="margin-top:0"><div class="panel-head"><h2>보관 정책</h2></div><div style="padding:18px"><div class="bodybox">새 버전 업로드 성공 → 최신 지정 → 직전 유지 → 3번째 이하 파일 자동 삭제 → 배포 기록은 DB에 유지</div></div></div></div><div class="panel"><div class="panel-head"><h2>${esc(pname(code))} 배포 기록</h2></div>${list.length?list.map((r,i)=>`<div class="release-row"><div><strong>v${esc(r.version)}</strong><div class="sub">${i===0?'최신':i===1?'직전':'기록'}</div></div><div><strong>${esc(r.title)}</strong><div class="sub">${Array.isArray(r.changes)?r.changes.map(esc).join(' · '):''}</div></div><div class="sub">${fmt(r.published_at)}</div><div>${r.file_path?`<button class="btn btn-ghost dl" data-path="${esc(r.file_path)}">설치파일 다운로드</button>`:'<span class="sub">파일 자동 정리됨</span>'}</div></div>`).join(''):'<div class="empty">배포 기록 없음</div>'}</div>`;$('#releaseProgram').onchange=e=>{state.releaseProgram=e.target.value;renderReleases()};$('#releaseSave').onclick=uploadRelease;$$('.dl').forEach(b=>b.onclick=()=>downloadRelease(b.dataset.path))}
+async function uploadRelease(){const code=state.releaseProgram,version=$('#rv').value.trim(),title=$('#rt').value.trim(),file=$('#rf').files[0],changes=$('#rc').value.split('\n').map(x=>x.trim()).filter(Boolean);if(!version||!title||!file)return toast('버전, 제목, 설치파일을 입력해주세요.');const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,'_'),path=code+'/'+Date.now()+'-'+safe;const up=await supabase.storage.from('release-files').upload(path,file);if(up.error)return toast('업로드 실패: '+up.error.message);const ins=await supabase.from('releases').insert({program_code:code,version,title,changes,file_path:path,file_name:file.name,file_size:file.size}).select().single();if(ins.error){await supabase.storage.from('release-files').remove([path]);return toast('배포 저장 실패: '+ins.error.message)}await supabase.from('programs').update({latest_version:version,current_version:version,updated_at:new Date().toISOString()}).eq('code',code);await cleanup(code);await refresh();renderReleases();toast('새 버전을 배포했습니다.')}
+async function cleanup(code){const {data}=await supabase.from('releases').select('*').eq('program_code',code).order('published_at',{ascending:false});for(const r of (data||[]).slice(2).filter(x=>x.file_path)){const d=await supabase.storage.from('release-files').remove([r.file_path]);if(!d.error)await supabase.from('releases').update({file_path:null,file_size:null}).eq('id',r.id)}}
+async function downloadRelease(path){const {data,error}=await supabase.storage.from('release-files').download(path);if(error)return toast('다운로드 실패: '+error.message);const u=URL.createObjectURL(data),a=document.createElement('a');a.href=u;a.download=path.split('/').pop();a.click();URL.revokeObjectURL(u)}
+$$('.nav button[data-page]').forEach(b=>b.onclick=()=>go(b.dataset.page));$('#loginBtn').onclick=login;$('#password').onkeydown=e=>{if(e.key==='Enter')login()};$('#logout').onclick=logout;
+const {data:{session}}=await supabase.auth.getSession();if(session)await enter();
+</script>
+</body>
+</html>
