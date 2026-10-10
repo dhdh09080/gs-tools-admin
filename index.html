@@ -67,7 +67,18 @@ main{padding:34px 38px 60px;max-width:1500px;width:100%;margin:auto}.top{display
   </main>
 </section>
 <div id="toast" class="toast hidden"></div>
-<script type="module">
+<script>
+window.addEventListener('error',function(e){
+  var el=document.getElementById('loginMsg');
+  if(el) el.innerHTML='<span class="error">화면 초기화 오류: '+String(e.message||'unknown error')+'</span>';
+});
+window.addEventListener('unhandledrejection',function(e){
+  var el=document.getElementById('loginMsg');
+  if(el) el.innerHTML='<span class="error">연결 오류: '+String((e.reason&&e.reason.message)||e.reason||'unknown error')+'</span>';
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 const supabase=createClient('https://vzfujgzhxtrtqrzqwtsq.supabase.co','sb_publishable_nVx9IH3WMgukXfhu7Im1Bg_hoz8JmCa',{auth:{persistSession:true,autoRefreshToken:true}});
 const $=s=>document.querySelector(s),$=s=>[...document.querySelectorAll(s)];
