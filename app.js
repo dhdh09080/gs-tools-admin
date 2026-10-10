@@ -1,3 +1,5 @@
+(()=>{
+'use strict';
 const sbClient=window.supabase.createClient('https://vzfujgzhxtrtqrzqwtsq.supabase.co','sb_publishable_nVx9IH3WMgukXfhu7Im1Bg_hoz8JmCa',{auth:{persistSession:true,autoRefreshToken:true}});
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
@@ -35,3 +37,4 @@ async function rejectMember(id){const f=memberFields(id),{error}=await sbClient.
 async function saveMember(id){const f=memberFields(id),{error}=await sbClient.from('profiles').update({...f,updated_at:new Date().toISOString()}).eq('user_id',id);if(error)return toast('저장 실패: '+error.message);toast('저장했습니다.');renderMembers()}
 async function toggleMember(id){const m=state.members.find(x=>x.user_id===id);if(!m)return;const {error}=await sbClient.from('profiles').update({status:m.status==='suspended'?'approved':'suspended',updated_at:new Date().toISOString()}).eq('user_id',id);if(error)return toast('상태 변경 실패: '+error.message);renderMembers()}
 $$('nav button[data-page]').forEach(b=>b.onclick=()=>go(b.dataset.page));$('#loginTab').onclick=()=>setAuthMode('login');$('#signupTab').onclick=()=>setAuthMode('signup');$('#loginBtn').onclick=login;$('#signupBtn').onclick=signup;$('#logoutBtn').onclick=async()=>{await sbClient.auth.signOut();location.reload()};$('#loginPassword').onkeydown=e=>{if(e.key==='Enter')login()};(async()=>{const {data:{session}}=await sbClient.auth.getSession();if(session)await enter();})().catch(e=>{const el=document.getElementById('loginMsg');if(el)el.innerHTML='<span class="error">초기화 오류: '+esc(e?.message||e)+'</span>';});
+})();
