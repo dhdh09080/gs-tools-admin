@@ -1,5 +1,4 @@
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
-const supabase=createClient('https://vzfujgzhxtrtqrzqwtsq.supabase.co','sb_publishable_nVx9IH3WMgukXfhu7Im1Bg_hoz8JmCa',{auth:{persistSession:true,autoRefreshToken:true}});
+const supabase=window.supabase.createClient('https://vzfujgzhxtrtqrzqwtsq.supabase.co','sb_publishable_nVx9IH3WMgukXfhu7Im1Bg_hoz8JmCa',{auth:{persistSession:true,autoRefreshToken:true}});
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
 const state={profile:null,feedback:[],programs:[],notices:[],releases:[],members:[],selected:null,programFilter:'',statusFilter:'',releaseProgram:''};
